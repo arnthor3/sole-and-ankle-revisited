@@ -1,10 +1,13 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
-import { COLORS, WEIGHTS } from '../../constants';
-import Logo from '../Logo';
-import SuperHeader from '../SuperHeader';
-import MobileMenu from '../MobileMenu';
+import { COLORS, WEIGHTS } from "../../constants";
+import { QUERIES } from "../../breakPoints";
+import Logo from "../Logo";
+import Icon from "../Icon";
+import SuperHeader from "../SuperHeader";
+import MobileMenu from "../MobileMenu";
+import UnstyledButton from "../UnstyledButton";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
@@ -21,6 +24,17 @@ const Header = () => {
         <Side>
           <Logo />
         </Side>
+        <MobileNav>
+          <UnstyledButton>
+            <Icon id="shopping-bag"></Icon>
+          </UnstyledButton>
+          <UnstyledButton>
+            <Icon id="search"></Icon>
+          </UnstyledButton>
+          <UnstyledButton>
+            <Icon id="menu"></Icon>
+          </UnstyledButton>
+        </MobileNav>
         <Nav>
           <NavLink href="/sale">Sale</NavLink>
           <NavLink href="/new">New&nbsp;Releases</NavLink>
@@ -29,7 +43,7 @@ const Header = () => {
           <NavLink href="/kids">Kids</NavLink>
           <NavLink href="/collections">Collections</NavLink>
         </Nav>
-        <Side />
+        <SecondSide />
       </MainHeader>
 
       <MobileMenu
@@ -48,14 +62,38 @@ const MainHeader = styled.div`
   border-bottom: 1px solid ${COLORS.gray[300]};
 `;
 
-const Nav = styled.nav`
+const MobileNav = styled.nav`
+  justify-content: flex-end;
   display: flex;
-  gap: 48px;
-  margin: 0px 48px;
+  flex: 1;
+  gap: 16px;
+  margin-left: auto;
+  @media ${QUERIES.tabletAndUp} {
+    gap: 32px;
+  }
+  @media ${QUERIES.laptopAndUp} {
+    display: none;
+  }
+`;
+
+const Nav = styled.nav`
+  @media ${QUERIES.laptopAndUp} {
+    display: flex;
+    gap: 48px;
+    margin: 0px 48px;
+  }
+  display: none;
 `;
 
 const Side = styled.div`
   flex: 1;
+`;
+
+const SecondSide = styled(Side)`
+  display: none;
+  @media ${QUERIES.tabletAndUp} {
+    flex: 1;
+  }
 `;
 
 const NavLink = styled.a`
